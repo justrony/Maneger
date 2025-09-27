@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Card;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        Card::create([
+            'name' => 'Itau',
+            'last_four' => '1234',
+            'maturity' => '22',
+            'theme' => '#FFA500'
         ]);
     }
 }

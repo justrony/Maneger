@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('card', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
+            $table->integer('last_four');
             $table->string('maturity');
+            $table->string('theme');
             $table->timestamps();
         });
     }
