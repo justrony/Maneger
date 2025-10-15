@@ -26,7 +26,7 @@
                         Opções
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Ação 1</a></li>
+                        <li><a class="dropdown-item" href="#">Adicionar Cartão</a></li>
                         <li><a class="dropdown-item" href="#">Ação 2</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Sair</a></li>
