@@ -43,7 +43,7 @@ class CardController extends Controller
 
         DB::beginTransaction();
         try {
-            $card = Card::create($validated);
+            Card::create($validated);
             DB::commit();
 
             return redirect()->route('card.home')
@@ -66,13 +66,13 @@ class CardController extends Controller
     }
     public function update(Request $request, Card $card){
         $rules = [
-            'name' => 'required|unique:card',
+            'name' => 'required|string|unique:card',
             'maturity' => 'required|numeric',
             'last_four' => 'required|numeric|digits:4',
-            'theme' => 'required|max:50',
+            'theme' => 'required|string|max:50',
         ];
         $message = [
-            '*.required' => 'O campos obrigatorios não podem ser vazios!',
+            '*.required' => 'Os campos obrigatorios devem ser preenchidos!',
             'name.unique' => 'O nome já existe!',
             'maturity.numeric' => 'A validade tem que ser numerico!',
             'last_four.numeric' => 'Os ultimos 4 tem que ser numerico!',
@@ -96,12 +96,10 @@ class CardController extends Controller
     }
 
     public function destroy(Card $card){
-
         DB::beginTransaction();
         try{
             $card->delete();
             DB::commit();
-
             return redirect()->route('card.home')
                 ->with('success', 'Cartão deletado com sucesso!');
         }catch (\Exception $exception){

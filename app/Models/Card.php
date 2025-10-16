@@ -14,4 +14,9 @@ class Card extends Model
         'theme'
     ];
 
+    public function invoice()
+    {
+        return $this->HasMany(Invoice::class,'invoice_id','id');
+    }
+
 }

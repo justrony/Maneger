@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\CardController;
-use App\Http\Controllers\FaturaController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'card.home');
 
 
-Route::prefix('fatura')->controller(FaturaController::class)->group(function () {
+Route::prefix('fatura')->controller(InvoiceController::class)->group(function () {
     Route::get('/', 'index');
 });
 
