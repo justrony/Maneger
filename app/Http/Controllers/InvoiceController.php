@@ -63,7 +63,7 @@ class InvoiceController extends Controller
             $rules = [
                 'name' => 'required|string|max:50',
                 'card_id' => 'required|integer|exists:card,id',
-                'status' => 'boolean|nullable',
+                'open' => 'boolean|nullable',
             ];
             $messages = [
                 '*.required' => 'Os campos obrigatorios devem ser preenchidos!',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('last_four');
             $table->string('maturity');
             $table->string('theme');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class CardController extends Controller
 {
     public function index(): View
     {
-        $cards = Card::all();
+        $cards = Card::where('active', true)->get();
 
         return view('card.home', compact('cards'));
     }
@@ -27,15 +27,16 @@ class CardController extends Controller
     {
         $rules = [
             'name' => 'required|unique:card',
-            'maturity' => 'required|numeric',
-            'last_four' => 'required|numeric|digits:4',
+            'maturity' => 'required|integer|between:1,31',
+            'last_four' => 'required|integer|digits:4',
             'theme' => 'required|max:50',
         ];
         $message = [
             '*.required' => 'O campos obrigatorios não podem ser vazios!',
             'name.unique' => 'O nome já existe!',
-            'maturity.numeric' => 'A validade tem que ser numerico!',
-            'last_four.numeric' => 'Os ultimos 4 tem que ser numerico!',
+            'maturity.integer' => 'A validade tem que ser um numero valido!',
+            'maturity.between' => 'A validade tem que ser um dia valido!',
+            'last_four.integer' => 'Os ultimos 4 tem que ser um numero valido!',
             'last_four.digits' => 'Os ultimos 4 tem que ter 4 numeros!',
             'theme.max' => 'O campo tem que ter 50 caracteres!',
         ];

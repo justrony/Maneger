@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Itau',
             'last_four' => '1234',
             'maturity' => '22',
-            'theme' => '#FFA500'
+            'theme' => '#FFA500',
+            'active' => true,
         ]);
     }
 }

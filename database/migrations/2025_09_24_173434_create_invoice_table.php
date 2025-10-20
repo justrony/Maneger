@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('card_id')->constrained('card');
             $table->foreignId('purchase_id')->constrained('purchase');
-            $table->boolean('status')->default(0);
+            $table->boolean('open')->default(true);
             $table->timestamps();
         });
     }

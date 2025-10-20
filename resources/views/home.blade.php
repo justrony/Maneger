@@ -8,9 +8,9 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h2">MCA</h1>{{-- Meus Cartões Ativos--}}
 
-            <a href="" class="btn btn-primary shadow-sm">
-                <i class="fas fa-plus-circle"></i> Adicionar Novo Cartão
-            </a>
+{{--            <a href="" class="btn btn-primary shadow-sm">--}}
+{{--                <i class="fas fa-plus-circle"></i> Adicionar Novo Cartão--}}
+{{--            </a>--}}
         </div>
 
         <div class="row">
