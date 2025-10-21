@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Invoice;
 use DomainException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -58,7 +59,8 @@ class CardController extends Controller
 
     public function show(Card $card): View
     {
-        return view('card.show', compact('card'));
+        $invoices = Invoice::where('card_id', $card->invoice())->get();
+        return view('card.show', compact('invoices'));
     }
 
     public function edit(Card $card): View
