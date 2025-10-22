@@ -7,7 +7,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
             <h1 class="h2 mb-2 mb-md-0">Detalhes do Cartão</h1>
-            <a href="{{ route('cards.index') }}" class="btn btn-secondary shadow-sm">
+            <a href="{{ route('card.home') }}" class="btn btn-secondary shadow-sm">
                 <i class="fas fa-arrow-left"></i> Voltar para Meus Cartões
             </a>
         </div>
@@ -48,7 +48,7 @@
                             <li class="list-group-item"><strong>Vencimento da Fatura:</strong> Dia {{ $card->maturity }} de cada mês</li>
                         </ul>
                         <div class="mt-4">
-                            <a href="{{ route('cards.edit', $card->id) }}" class="btn btn-primary">
+                            <a href="{{ route('card.edit', $card->id) }}" class="btn btn-primary">
                                 <i class="fas fa-edit"></i> Editar Cartão
                             </a>
                         </div>
@@ -59,7 +59,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
             <h2 class="h3 mb-2 mb-md-0">Faturas do Cartão</h2>
-            <a href="#" class="btn btn-success shadow-sm">
+            <a href="{{route('invoice.create')}}" class="btn btn-success shadow-sm">
                 <i class="fas fa-plus-circle"></i> Adicionar Nova Fatura
             </a>
         </div>
@@ -78,7 +78,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($card->invoices->sortByDesc('reference_year')->sortByDesc('reference_month') as $invoice)
+                        @forelse ($invoices as $invoice)
                             <tr>
                                 <td class="ps-4 align-middle">{{ date('F/Y', mktime(0, 0, 0, $invoice->reference_month, 1, $invoice->reference_year)) }}</td>
                                 <td class="align-middle">R$ {{ number_format($invoice->amount, 2, ',', '.') }}</td>

@@ -19,13 +19,13 @@
                     <div class="card h-100 shadow card-hover" style="background-color: {{$card->theme}}">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title text-white">{{$card->name}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Dia {{$card->maturity}}</h6>
+                            <h6 class="card-subtitle mb-2" style="color: rgba(255,255,255,0.8);">Dia {{$card->maturity}}</h6>
 
                             <p class="card-text font-monospace my-3 text-white">
                                 **** **** **** {{$card->last_four}}
                             </p>
 
-                            <a href="" class="btn btn-outline-light mt-auto">
+                            <a href="{{route('card.show',$card)}}" class="btn btn-outline-light mt-auto">
                                 Ver Fatura e Detalhes
                             </a>
                         </div>
@@ -37,7 +37,7 @@
                         <h4 class="alert-heading">Nenhum cartão cadastrado!</h4>
                         <p>Você ainda não adicionou nenhum cartão de crédito. Que tal começar agora?</p>
                         <hr>
-                        <a href="{{ route('cards.create') }}" class="btn btn-success">Adicionar meu primeiro cartão</a>
+                        <a href="{{ route('card.create') }}" class="btn btn-success">Adicionar meu primeiro cartão</a>
                     </div>
                 </div>
             @endforelse

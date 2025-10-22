@@ -16,7 +16,7 @@ class CardController extends Controller
     {
         $cards = Card::where('active', true)->get();
 
-        return view('card.home', compact('cards'));
+        return view('home', compact('cards'));
     }
 
     public function create(): View
@@ -59,8 +59,10 @@ class CardController extends Controller
 
     public function show(Card $card): View
     {
-        $invoices = Invoice::where('card_id', $card->invoice())->get();
-        return view('card.show', compact('invoices'));
+
+        $invoices = Invoice::where('card_id', $card->id)->get();
+
+        return view('card.show', compact('invoices', 'card'));
     }
 
     public function edit(Card $card): View

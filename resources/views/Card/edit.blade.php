@@ -7,7 +7,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h2">Editar Cartão: <span class="text-primary">{{ $card->name }}</span></h1>
-            <a href="{{ route('cards.index') }}" class="btn btn-secondary shadow-sm">
+            <a href="{{ route('card.home') }}" class="btn btn-secondary shadow-sm">
                 <i class="fas fa-arrow-left"></i> Voltar para Meus Cartões
             </a>
         </div>
@@ -16,7 +16,7 @@
             <div class="card-body">
                 <h5 class="card-title mb-4">Altere os dados do seu cartão</h5>
 
-                <form action="{{ route('cards.update', $card->id) }}" method="POST">
+                <form action="{{ route('card.update', $card->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 

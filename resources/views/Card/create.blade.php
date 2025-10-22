@@ -7,7 +7,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h2">Adicionar Novo Cartão</h1>
-            <a href="{{ route('cards.index') }}" class="btn btn-secondary shadow-sm">
+            <a href="{{ route('card.home') }}" class="btn btn-secondary shadow-sm">
                 <i class="fas fa-arrow-left"></i> Voltar para Meus Cartões
             </a>
         </div>
@@ -17,8 +17,8 @@
                 <h5 class="card-title mb-4">Preencha os dados do seu novo cartão</h5>
 
 
-                <form action="{{ route('cards.store') }}" method="POST">
-
+                <form action="{{ route('card.store') }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label">Nome do Cartão</label>
