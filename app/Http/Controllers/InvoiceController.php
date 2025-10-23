@@ -11,15 +11,12 @@ use Illuminate\Support\Facades\Log;
 class InvoiceController extends Controller
 {
 
-    public function create(){
-        return view('invoice.create');
-    }
-
     public function store(Request $request){
 
         $rules = [
             'name' => 'required|string|max:50',
             'card_id' => 'required|integer|exists:card,id',
+            'purchase_id' => 'nullable|integer|exists:purchase,id',
             'status' => 'boolean|nullable',
         ];
         $messages = [
@@ -27,22 +24,25 @@ class InvoiceController extends Controller
             'name.max' => 'O nome deve ter no maximo 50 caracteres!',
         ];
 
+        $CardId = $request->input('card_id');
         $validated = $request->validate($rules, $messages);
 
         DB::beginTransaction();
 
         try{
+
             Invoice::create($validated);
             DB::commit();
 
-            return redirect()->route('invoice.index')
+            return redirect()->route('card.show', $CardId)
                 ->with('success', 'Fatura aberta com sucesso!');
         }catch(\Exception $e){
             DB::rollback();
             Log::error($e->getMessage());
 
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', $e->getTraceAsString());
         }
+
 
     }
         public function show()

@@ -5,7 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', 'card.home');
+Route::redirect('/', 'home');
 
 
 Route::controller(CardController::class)->name('card.')->group(function () {
@@ -20,6 +20,9 @@ Route::controller(CardController::class)->name('card.')->group(function () {
 
 });
 
+Route::controller(InvoiceController::class)->name('invoice.')->group(function () {
+    Route::post('/invoice/store',[InvoiceController::class,'store'])->name('store');
+});
 
 Route::controller(PurchaseController::class)->prefix('purchase')
     ->name('purchase.')->group(function () {

@@ -11,6 +11,7 @@ class Invoice extends Model
             'name',
             'card_id',
             'purchase_id',
+            'status',
     ];
 
     public function purchase(){
