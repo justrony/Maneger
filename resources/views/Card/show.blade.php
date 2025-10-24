@@ -47,7 +47,7 @@
                             <li class="list-group-item"><strong>Vencimento da Fatura:</strong> Dia {{ $card->maturity }} de cada mês</li>
                         </ul>
                         <div class="mt-4">
-                            <a href="{{ route('card.edit', $card->id) }}" class="btn btn-primary">
+                            <a href="{{ route('card.edit', $card) }}" class="btn btn-primary">
                                 <i class="fas fa-edit"></i> Editar Cartão
                             </a>
                         </div>
@@ -91,9 +91,22 @@
                                     @endif
                                 </td>
                                 <td class="text-end pe-4">
-                                    <a href="" class="btn btn-sm btn-warning" title="Ver Detalhes da Fatura">
-                                        <i class="fas fa-eye text-white"></i>
-                                    </a>
+                                    <ul class="list-unstyled d-flex justify-content-end">
+                                        <li>
+                                            <a href="" class="btn btn-sm btn-warning" title="Ver Detalhes da Fatura">
+                                                <i class="fas fa-eye text-white"></i>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown btn btn-primary">
+                                            <a class="text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cog" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="{{route('card.create')}}"></a></li>
+                                                <li><a class="dropdown-item" href="#">Ação 2</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                         @empty
@@ -115,7 +128,7 @@
     </div>
 
 
-    <!-- 2. CÓDIGO DO MODAL -->
+    <!--  CÓDIGO DO MODAL -->
     <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -45,13 +45,13 @@ class InvoiceController extends Controller
 
 
     }
-        public function show()
+        public function show(Invoice $invoice)
         {
-            return view('invoice.show');
+            return view('invoice.show', compact('invoice'));
         }
 
-        public function edit(){
-            return view('invoice.edit');
+        public function edit(Invoice $invoice){
+            return view('invoice.edit', compact('invoice'));
         }
 
         public function update(Request $request, Invoice $invoice){
