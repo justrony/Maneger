@@ -47,6 +47,8 @@ class InvoiceController extends Controller
     }
         public function show(Invoice $invoice)
         {
+            $invoice->load('purchase', 'card');
+
             return view('invoice.show', compact('invoice'));
         }
 
@@ -71,10 +73,12 @@ class InvoiceController extends Controller
             DB::beginTransaction();
 
             try{
-                $invoice::update($validated);
+                $invoice->update($validated);
                 DB::commit();
 
-                return redirect()->route('invoice.index')
+                $cardId = $request->input('card_id');
+
+                return redirect()->route('card.show',$cardId)
                     ->with('success', 'Fatura Atualizada com sucesso!');
             }catch(\Exception $e){
                 DB::rollback();

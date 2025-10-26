@@ -71,7 +71,7 @@ class CardController extends Controller
     }
     public function update(Request $request, Card $card){
         $rules = [
-            'name' => 'required|string|unique:card',
+            'name' => 'required|string',
             'maturity' => 'required|numeric',
             'last_four' => 'required|numeric|digits:4',
             'theme' => 'required|string|max:50',

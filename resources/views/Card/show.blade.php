@@ -3,6 +3,15 @@
 @section('title', 'Detalhes do Cartão')
 
 @section('content')
+    <style>
+        .table-responsive {
+            overflow: visible !important;
+        }
+
+        td {
+            overflow: visible !important;
+        }
+    </style>
     <div class="container mt-5">
 
         @include('error.notifier')
@@ -72,7 +81,6 @@
                         <tr>
                             <th scope="col" class="ps-4">Referência</th>
                             <th scope="col">Valor</th>
-                            <th scope="col">Vencimento</th>
                             <th scope="col">Status</th>
                             <th scope="col" class="text-end pe-4">Ações</th>
                         </tr>
@@ -82,7 +90,6 @@
                             <tr>
                                 <td class="ps-4 align-middle">{{ date('F/Y', mktime(0, 0, 0, $invoice->reference_month, 1, $invoice->reference_year)) }}</td>
                                 <td class="align-middle">R$ {{ number_format($invoice->amount, 2, ',', '.') }}</td>
-                                <td class="align-middle">{{ \Carbon\Carbon::parse($invoice->due_date)->format('d/m/Y') }}</td>
                                 <td class="align-middle">
                                     @if($invoice->open)
                                         <span class="badge bg-success">Aberta</span>
@@ -93,17 +100,31 @@
                                 <td class="text-end pe-4">
                                     <ul class="list-unstyled d-flex justify-content-end">
                                         <li>
-                                            <a href="" class="btn btn-sm btn-warning" title="Ver Detalhes da Fatura">
+                                            <a href="{{route('invoice.show',$invoice)}}" class="btn btn-sm btn-warning" title="Ver Detalhes da Fatura">
                                                 <i class="fas fa-eye text-white"></i>
                                             </a>
                                         </li>
-                                        <li class="dropdown btn btn-primary">
-                                            <a class="text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-cog" aria-hidden="true"></i>
-                                            </a>
+                                        <li class="dropdown">
+                                            <button class="text-white btn btn-primary btn-sm ms-1"
+                                                    id="btnDropdown"
+                                                    data-bs-container="body"
+                                                    role="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="{{route('card.create')}}"></a></li>
-                                                <li><a class="dropdown-item" href="#">Ação 2</a></li>
+                                                <li><a class="dropdown-item" href="{{route('invoice.destroy',$invoice)}}">Deletar</a></li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       href="#"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#editInvoiceModal"
+                                                       data-bs-form-action="{{ route('invoice.update', $invoice) }}"
+                                                       data-bs-invoice-name="{{ $invoice->name }}"
+                                                       data-bs-invoice-open="{{ $invoice->open ? 'true' : 'false' }}">
+                                                        Editar / Fechar Fatura
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -125,37 +146,29 @@
             </div>
         </div>
 
-    </div>
+        @include('components.modals.invoice-create')
+        @include('components.modals.invoice-update')
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var editInvoiceModal = document.getElementById('editInvoiceModal');
 
-    <!--  CÓDIGO DO MODAL -->
-    <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addInvoiceModalLabel">Adicionar Nova Fatura</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+            editInvoiceModal.addEventListener('show.bs.modal', function (event) {
 
-                <form action="{{route('invoice.store')}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="card_id" value="{{ $card->id }}">
+                var button = event.relatedTarget;
 
-                    <div class="modal-body">
+                var formAction = button.getAttribute('data-bs-form-action');
+                var invoiceName = button.getAttribute('data-bs-invoice-name');
+                var invoiceOpen = button.getAttribute('data-bs-invoice-open');
 
-                        <div class="mb-3">
-                            <label for="invoiceName" class="form-label">Nome/Referência</label>
-                            <input type="text" class="form-control" id="invoiceName" name="name" placeholder="Ex: Fatura de Janeiro" required>
-                        </div>
+                var modalForm = document.getElementById('editInvoiceForm');
+                var modalNameInput = document.getElementById('editInvoiceName');
+                var modalOpenSwitch = document.getElementById('editInvoiceOpen');
 
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Salvar Fatura</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                modalForm.action = formAction;
+                modalNameInput.value = invoiceName;
+                modalOpenSwitch.checked = (invoiceOpen === 'true');
+            });
+        });
+    </script>
 @endsection

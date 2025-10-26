@@ -10,18 +10,21 @@ Route::redirect('/', 'home');
 
 Route::controller(CardController::class)->name('card.')->group(function () {
 
-    Route::get('/home',[CardController::class,'index'])->name('home');
-    Route::get('/card/create',[CardController::class,'create'])->name('create');
-    Route::post('/card/store',[CardController::class,'store'])->name('store');
-    Route::get('/card/show/{card}',[CardController::class,'show'])->name('show');
-    Route::get('/card/edit/{card}',[CardController::class,'edit'])->name('edit');
-    Route::post('/card/update/{card}',[CardController::class,'update'])->name('update');
-    Route::get('/card/delete/{card}',[CardController::class,'destroy'])->name('delete');
+    Route::get('/home','index')->name('home');
+    Route::get('/card/create','create')->name('create');
+    Route::post('/card/store','store')->name('store');
+    Route::get('/card/show/{card}','show')->name('show');
+    Route::get('/card/edit/{card}','edit')->name('edit');
+    Route::put('/card/update/{card}','update')->name('update');
+    Route::get('/card/delete/{card}','destroy')->name('delete');
 
 });
 
 Route::controller(InvoiceController::class)->name('invoice.')->group(function () {
-    Route::post('/invoice/store',[InvoiceController::class,'store'])->name('store');
+    Route::post('/invoice/store','store')->name('store');
+    Route::put('/invoice/update/{invoice}','update')->name('update');
+    Route::delete('/invoice/delete/{invoice}','destroy')->name('destroy');
+    Route::get('/invoice/show/{invoice}','show')->name('show');
 });
 
 Route::controller(PurchaseController::class)->prefix('purchase')
