@@ -30,6 +30,9 @@ Route::controller(InvoiceController::class)->name('invoice.')->group(function ()
 Route::controller(PurchaseController::class)->prefix('purchase')
     ->name('purchase.')->group(function () {
 
-    Route::get('/,',[PurchaseController::class,'index'])->name('index');
+    Route::get('/,','index')->name('index');
+    Route::post('/store','store')->name('store');
+    Route::put('/update/{purchase}','update')->name('update');
+    Route::delete('/delete/{purchase}','destroy')->name('destroy');
 });
 

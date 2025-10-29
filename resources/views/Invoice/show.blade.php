@@ -61,11 +61,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($invoice->purchase as $purchase)
+                        @forelse($invoice->purchase as $purchase)
                             <tr>
-                                <td class="ps-4 align-middle">{{ $purchase->description }}</td>
-                                <td class="align-middle">{{ $purchase->purchase_date->format('d/m/Y') }}</td>
-                                <td class="align-middle">R$ {{ number_format($purchase->amount, 2, ',', '.') }}</td>
+                                <td class="ps-4 align-middle">{{ $purchase->name }}</td>
+                                <td class="align-middle">{{ $purchase->created_at->format('d/m/Y') }}</td>
+                                <td class="align-middle">R$ {{ number_format($purchase->price, 2, ',', '.') }}</td>
                                 <td class="text-end pe-4">
                                     <button class="btn btn-sm btn-info text-white" title="Editar Compra">
                                         <i class="fas fa-edit"></i>
@@ -90,7 +90,7 @@
                             <tfoot class="table-group-divider fw-bold">
                             <tr>
                                 <td colspan="2" class="ps-4 text-end">Total Calculado:</td>
-                                <td>R$ {{ number_format($invoice->purchases->sum('amount'), 2, ',', '.') }}</td>
+                                <td>R$ {{ number_format($invoice->purchase->sum('price'), 2, ',', '.') }}</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -115,25 +115,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="{{-- route('purchase.store') --}}" method="POST">
+                <form action="{{ route('purchase.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
 
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="purchaseDescription" class="form-label">Descrição</label>
-                            <input type="text" class="form-control" id="purchaseDescription" name="description" placeholder="Ex: iFood, Uber, Supermercado" required>
+                            <label for="purchaseName" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="purchaseName" name="name" placeholder="Nome do produto" required>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="purchaseAmount" class="form-label">Valor (R$)</label>
-                                <input type="number" step="0.01" class="form-control" id="purchaseAmount" name="amount" placeholder="19.90" required>
+                                <label for="purchasePrice" class="form-label">Valor (R$)</label>
+                                <input type="number" step="0.01" class="form-control" id="purchasePrice" name="price" placeholder="19.90" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="purchaseDate" class="form-label">Data da Compra</label>
-                                <input type="date" class="form-control" id="purchaseDate" name="purchase_date" value="{{ date('Y-m-d') }}" required>
+                                <label for="purchaseStore" class="form-label">Loja</label>
+                                <input type="text" class="form-control" id="purchaseStore" name="store" placeholder="Ex: iFood, Uber, Supermercado" required>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="purchaseDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="purchaseDescription" name="description" placeholder="Ex: Sobre" required></textarea>
                         </div>
                     </div>
 

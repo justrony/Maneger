@@ -16,9 +16,9 @@ class Invoice extends Model
     ];
 
     public function purchase(){
-        return $this->HasMany(Purchase::class, 'id', 'purchase_id');
+        return $this->HasMany(Purchase::class, 'invoice_id','id' );
     }
     public function card(){
-        return $this->belongsTo(Card::class, 'id', );
+        return $this->belongsTo(Card::class, 'card_id','id' );
     }
 }

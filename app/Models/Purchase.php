@@ -12,10 +12,10 @@ class Purchase extends Model
         'store',
         'description',
         'price',
-        'card_id'
+        'invoice_id'
     ];
 
     public function card(){
-        return $this->belongsTo(Card::class, 'card_id');
+        return $this->belongsTo(Card::class, 'id');
     }
 }
