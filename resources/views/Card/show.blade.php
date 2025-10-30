@@ -89,7 +89,7 @@
                         @forelse ($invoices as $invoice)
                             <tr>
                                 <td class="ps-4 align-middle">{{ date('F/Y', mktime(0, 0, 0, $invoice->reference_month, 1, $invoice->reference_year)) }}</td>
-                                <td class="align-middle">R$ {{ number_format($invoice->amount, 2, ',', '.') }}</td>
+                                <td class="align-middle">R$ {{ number_format($invoice->purchase->sum('price'), 2, ',', '.') }}</td>
                                 <td class="align-middle">
                                     @if($invoice->open)
                                         <span class="badge bg-success">Aberta</span>

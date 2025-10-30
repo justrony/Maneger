@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('card_id')->constrained('card');
             $table->boolean('open')->nullable()->default(true);
-            $table->float('amount')->nullable()->default(0);
             $table->timestamps();
         });
     }

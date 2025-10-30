@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="invoiceName" class="form-label">Nome/Referência</label>
-                        <input type="text" class="form-control" id="invoiceName" name="name" placeholder="Ex: Fatura de Janeiro" required>
+                        <input type="text" class="form-control" id="invoiceName" name="name" placeholder="Ex: Fatura de Janeiro" value="{{old('name')}}" required>
                     </div>
                 </div>
                 <div class="modal-footer">

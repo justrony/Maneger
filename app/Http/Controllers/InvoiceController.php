@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\Invoice;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -48,13 +49,10 @@ class InvoiceController extends Controller
         public function show(Invoice $invoice)
         {
             $invoice->load('purchase', 'card');
-
+            $purchase = Purchase::where('');
             return view('invoice.show', compact('invoice'));
         }
 
-        public function edit(Invoice $invoice){
-            return view('invoice.edit', compact('invoice'));
-        }
 
         public function update(Request $request, Invoice $invoice){
 

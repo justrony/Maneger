@@ -14,7 +14,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="editInvoiceName" class="form-label">Nome/Referência</label>
-                            <input type="text" class="form-control" id="editInvoiceName" name="name" required>
+                            <input type="text" class="form-control" id="editInvoiceName" name="name" value="{{old('name')}}" required>
                         </div>
                         <div class="form-check form-switch mb-3">
                             <input type="hidden" name="open" value="0">
