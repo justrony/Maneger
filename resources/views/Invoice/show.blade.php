@@ -66,10 +66,30 @@
                                 <td class="align-middle">{{ $purchase->created_at->format('d/m/Y') }}</td>
                                 <td class="align-middle">R$ {{ number_format($purchase->price, 2, ',', '.') }}</td>
                                 <td class="text-end pe-4">
-                                    <button class="btn btn-sm btn-info text-white" title="Detalhes da Compra" data-bs-toggle="modal" data-bs-target="#viewPurchaseModal">
+                                    <button class="btn btn-sm btn-info text-white"
+                                            title="Detalhes da Compra"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#viewPurchaseModal"
+
+                                            data-id="{{$purchase->id}}"
+                                            data-name="{{$purchase->name}}"
+                                            data-price="{{$purchase->price}}"
+                                            data-store="{{$purchase->store}}"
+                                            data-description="{{$purchase->descrption}}"
+                                            data-created="{{$purchase->created_at}}">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-warning text-white" title="Editar Compra" data-bs-toggle="modal" data-bs-target="#editPurchaseModal">
+                                    <button class="btn btn-sm btn-warning text-white"
+                                            title="Editar Compra"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editPurchaseModal"
+
+                                            data-update-url="{{ route('purchase.update', $purchase->id) }}"
+                                            data-name="{{ $purchase->name }}"
+                                            data-price="{{ $purchase->price }}"
+                                            data-store="{{ $purchase->store }}"
+                                            data-description="{{ $purchase->description }}">
+
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-sm btn-danger" title="Excluir Compra">
@@ -105,5 +125,69 @@
 
     @include('components.modals.purchase-create')
     @include('components.modals.purchase-update')
-    @include('components.modals.purchase-show')
+    <div class="modal fade" id="viewPurchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="purchaseModalLabel">Detalhes da Compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <p><strong>ID:</strong> <span id="modalPurchaseId">{{$purchase->id}}</span></p>
+                    <p><strong>Nome:</strong> <span id="modalPurchaseName">{{$purchase->name}}</span></p>
+                    <p><strong>Loja:</strong> <span id="modalPurchaseStore">{{$purchase->store}}</span></p>
+                    <p><strong>Preço:</strong> <span id="modalPurchasePrice">{{$purchase->price}}</span></p>
+
+                    <div id="modalDescriptionWrapper">
+                        <p><strong>Descrição:</strong></p>
+                        <p><span id="modalPurchaseDescription">{{$purchase->description}}</span></p>
+                    </div>
+
+                    <hr>
+                    <small class="text-muted">
+                        <strong>Cadastrado em:</strong> <span id="modalPurchaseCreatedAt">{{$purchase->created_at->format('d/m/Y')}}</span><br>
+                    </small>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        const editModal = document.getElementById('editPurchaseModal');
+
+        editModal.addEventListener('show.bs.modal', function (event) {
+
+            const button = event.relatedTarget;
+
+            const updateUrl = button.getAttribute('data-update-url');
+            const name = button.getAttribute('data-name');
+            const price = button.getAttribute('data-price');
+            const store = button.getAttribute('data-store');
+            const description = button.getAttribute('data-description');
+
+            const editForm = editModal.querySelector('#editPurchaseForm');
+
+            editForm.action = updateUrl;
+
+            editModal.querySelector('#purchaseNameEdit').value = name;
+            editModal.querySelector('#purchasePriceEdit').value = price;
+            editModal.querySelector('#purchaseStoreEdit').value = store;
+            editModal.querySelector('#purchaseDescriptionEdit').value = description;
+
+
+        });
+
+        const viewModal = document.getElementById('viewPurchaseModal');
+
+        viewModal.addEventListener('show.bs.modal', function (event){
+            
+        });
+    </script>
 @endsection
