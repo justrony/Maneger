@@ -75,8 +75,8 @@
                                             data-name="{{$purchase->name}}"
                                             data-price="{{$purchase->price}}"
                                             data-store="{{$purchase->store}}"
-                                            data-description="{{$purchase->descrption}}"
-                                            data-created="{{$purchase->created_at}}">
+                                            data-description="{{$purchase->description}}"
+                                            data-created="{{$purchase->created_at->format('d/m/Y')}}">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="btn btn-sm btn-warning text-white"
@@ -125,37 +125,7 @@
 
     @include('components.modals.purchase-create')
     @include('components.modals.purchase-update')
-    <div class="modal fade" id="viewPurchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="purchaseModalLabel">Detalhes da Compra</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <p><strong>ID:</strong> <span id="modalPurchaseId">{{$purchase->id}}</span></p>
-                    <p><strong>Nome:</strong> <span id="modalPurchaseName">{{$purchase->name}}</span></p>
-                    <p><strong>Loja:</strong> <span id="modalPurchaseStore">{{$purchase->store}}</span></p>
-                    <p><strong>Preço:</strong> <span id="modalPurchasePrice">{{$purchase->price}}</span></p>
-
-                    <div id="modalDescriptionWrapper">
-                        <p><strong>Descrição:</strong></p>
-                        <p><span id="modalPurchaseDescription">{{$purchase->description}}</span></p>
-                    </div>
-
-                    <hr>
-                    <small class="text-muted">
-                        <strong>Cadastrado em:</strong> <span id="modalPurchaseCreatedAt">{{$purchase->created_at->format('d/m/Y')}}</span><br>
-                    </small>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('components.modals.purchase-show')
 
 
     <script>
@@ -173,7 +143,6 @@
             const description = button.getAttribute('data-description');
 
             const editForm = editModal.querySelector('#editPurchaseForm');
-
             editForm.action = updateUrl;
 
             editModal.querySelector('#purchaseNameEdit').value = name;
@@ -181,13 +150,28 @@
             editModal.querySelector('#purchaseStoreEdit').value = store;
             editModal.querySelector('#purchaseDescriptionEdit').value = description;
 
-
         });
 
         const viewModal = document.getElementById('viewPurchaseModal');
 
         viewModal.addEventListener('show.bs.modal', function (event){
-            
+
+            const button = event.relatedTarget;
+
+            const viewId = button.getAttribute('data-id');
+            const name= button.getAttribute('data-name');
+            const price = button.getAttribute('data-price');
+            const store = button.getAttribute('data-store');
+            const description = button.getAttribute('data-description');
+            const created = button.getAttribute('data-created');
+
+            viewModal.querySelector('#modalPurchaseId').textContent = viewId
+            viewModal.querySelector('#modalPurchaseName').textContent = name
+            viewModal.querySelector('#modalPurchasePrice').textContent = "R$ " + price
+            viewModal.querySelector('#modalPurchaseStore').textContent = store
+            viewModal.querySelector('#modalPurchaseDescription').textContent = description
+            viewModal.querySelector('#modalPurchaseCreatedAt').textContent = created
+
         });
     </script>
 @endsection

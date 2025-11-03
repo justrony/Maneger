@@ -7,19 +7,19 @@
             </div>
             <div class="modal-body">
 
-                <p><strong>ID:</strong> <span id="modalPurchaseId">{{$purchase->id}}</span></p>
-                <p><strong>Nome:</strong> <span id="modalPurchaseName">{{$purchase->name}}</span></p>
-                <p><strong>Loja:</strong> <span id="modalPurchaseStore">{{$purchase->store}}</span></p>
-                <p><strong>Preço:</strong> <span id="modalPurchasePrice">{{$purchase->price}}</span></p>
+                <p><strong>ID:</strong> <span id="modalPurchaseId"></span></p>
+                <p><strong>Nome:</strong> <span id="modalPurchaseName"></span></p>
+                <p><strong>Loja:</strong> <span id="modalPurchaseStore"></span></p>
+                <p><strong>Preço:</strong> <span id="modalPurchasePrice"></span></p>
 
                 <div id="modalDescriptionWrapper">
                     <p><strong>Descrição:</strong></p>
-                    <p><span id="modalPurchaseDescription">{{$purchase->description}}</span></p>
+                    <p><span id="modalPurchaseDescription"></span></p>
                 </div>
 
                 <hr>
                 <small class="text-muted">
-                    <strong>Cadastrado em:</strong> <span id="modalPurchaseCreatedAt">{{$purchase->created_at->format('d/m/Y')}}</span><br>
+                    <strong>Cadastrado em:</strong> <span id="modalPurchaseCreatedAt"></span><br>
                 </small>
 
             </div>
